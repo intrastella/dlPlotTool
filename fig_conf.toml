@@ -1,0 +1,137 @@
+[LossFig]
+name = "LossFig"
+display_mode = "double"
+window = "lossWindow"
+features = "cool_dropdown"
+
+[ParamsFig]
+name = "ParamsFig"
+display_mode = "double"
+window = "paraWindow"
+color_scheme = "lightorange"
+
+[LossFig.data]
+paper_bgcolor = "#2E3337"
+plot_bgcolor = "#2E3337"
+font_color = "#99A8B2"
+width = 800
+height = 600
+yaxis_domain = [ 0.06, 0.94,]
+xaxis_domain = [ 0.06, 0.94,]
+
+[LossFig.xaxis]
+gridcolor = "#99A8B2"
+griddash = "dot"
+title = "<b>Train</b> Epoch"
+
+[LossFig.yaxis]
+gridcolor = "#99A8B2"
+griddash = "dot"
+zerolinecolor = "#99A8B2"
+
+[LossFig.Div]
+children = "Loss"
+className = "loss-title"
+
+[LossFig.Graph]
+className = "loss-fig"
+id = "LossFig"
+
+[LossFig.Select]
+options = [ "exp0001", "exp0002", "exp0003",]
+id = "model-id"
+className = [ "chosen-value", "value-list",]
+placeholder = "Select an experiment"
+
+[LossFig.Dropdown]
+options = [ "exp0001", "exp0002", "exp0003", "exp0004", "exp0005", "exp0006", "exp0007", "exp0008", "exp0009",]
+placeholder = "Select an experiment"
+
+[LossFig.CDropdown]
+options = [ "exp0001", "exp0002",]
+className = "cd_id"
+placeholder = "Select an experiment"
+id = "model-id"
+
+[ParamsFig.Div]
+children = "Configuration Loss"
+className = "params-title"
+
+[ParamsFig.Graph]
+className = "params-fig"
+id = "ParamsFig"
+
+[ParamsFig.data]
+title = "<b>Hyper</b>parameters"
+paper_bgcolor = "#2E3337"
+plot_bgcolor = "#2E3337"
+font_color = "#99A8B2"
+width = 800
+height = 600
+xaxis_domain = [ 0.0, 1.0,]
+
+[ParamsFig.new_axis]
+anchor = "free"
+overlaying = "y"
+side = "left"
+
+[ParamsFig.anno]
+mode = "text"
+textposition = "top center"
+hoverinfo = "skip"
+
+[LossFig.data.xaxis2]
+title = "<b>Valid</b> Epoch"
+gridcolor = "#99A8B2"
+griddash = "dot"
+overlaying = "x"
+side = "top"
+anchor = "y"
+
+[LossFig.xaxis.tickfont]
+color = "#99A8B2"
+
+[LossFig.yaxis.tickfont]
+color = "#99A8B2"
+
+[ParamsFig.layout.xaxis]
+gridcolor = "#99A8B2"
+griddash = "dot"
+zerolinecolor = "#99A8B2"
+
+[LossFig.data.xaxis2.tickfont]
+color = "#99A8B2"
+
+[LossFig.traceVals.train.dataplot]
+mode = "lines"
+line_color = "#5489ed"
+opacity = 0.5
+name = "Train Loss"
+xaxis = "x"
+
+[LossFig.traceVals.train.interpolation]
+deg = 5
+inter_step = 25
+
+[LossFig.traceVals.train.interplot]
+mode = "lines"
+line_color = "#5489ed"
+name = "Interpolation"
+xaxis = "x"
+
+[LossFig.traceVals.validation.dataplot]
+mode = "lines"
+line_color = "#E57642"
+opacity = 0.5
+name = "Validation Loss"
+xaxis = "x2"
+
+[LossFig.traceVals.validation.interpolation]
+deg = 4
+inter_step = 10
+
+[LossFig.traceVals.validation.interplot]
+mode = "lines"
+line_color = "#E57642"
+name = "Interpolation"
+xaxis = "x2"
