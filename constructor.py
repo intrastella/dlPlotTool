@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import logging
 from pathlib import Path
 from typing import Union
@@ -14,9 +17,20 @@ from dash import Dash, dcc, html
 from dash.dependencies import Input, Output, ClientsideFunction
 import dash_bootstrap_components as dbc
 
-from html_methods import _dropdown, _select, _cool_dropdown
+from html_methods import _multi_select, _cool_dropdown
 from plotlyFigs import ParamsFig, LossFig, WeightFig
 from utils import PlotType, get_config, parser
+
+
+__author__ = "Stella Muamba Ngufulu"
+__contact__ = "stellamuambangufulu@gmail.com"
+__copyright__ = "Copyright 2023, DL Plot Tools"
+__date__ = "2023/01/30"
+__deprecated__ = False
+__license__ = "Mozilla Public License 2.0"
+__maintainer__ = "developer"
+__status__ = "Dev"
+__version__ = "0.0.1"
 
 
 cwd = Path(__file__).resolve().parent
@@ -59,12 +73,27 @@ class DLPlotter:
         Collect the loss at each step to plot the training (and/or) validation loss
         of one or several experiments with different configurations of hyperparameters.
 
-        :param exp_id: Unique identifier of an experiment. Type = str.
-        :param n_batches: Number of batchtes = total number of samples per epoch / batch size. Type = int.
-        :param epoch: Current number of epoch. Type = int.
-        :param step: Current step within an epoch. Type = int.
-        :param loss: Amount of loss calculated by your loss function. Type = float.
-        :param mode: Loss of a validation run or of a training run. Type = str.
+        EXAMPLE:
+
+        plotter = DLPlotter()
+        model = MyModel()
+        ...
+        for epoch in range(5):
+            for step, (x, y) in enumerate(loader):
+                ...
+                output = model(x)
+                loss = loss_func(output, y)
+
+                plotter.collect_loss("exp001", len(loaders), epoch, step, loss.item(), "train")
+                ...
+        plotter.construct()
+
+        :param (str) exp_id: Unique identifier of an experiment. (str)
+        :param (int) n_batches: Number of batchtes = total number of samples per epoch / batch size.
+        :param (int) epoch: Current number of epoch starting at 0.
+        :param (int) step: Current step within an epoch starting at 0.
+        :param (float) loss: Amount of loss calculated by your loss function.
+        :param (str) mode: Loss of a validation run or of a training run.
         """
 
         if not isinstance(step, int):
@@ -82,6 +111,7 @@ class DLPlotter:
         if not isinstance(loss, float):
             raise ValueError(f"Loss must be of type str not {type(loss)}.")
 
+        epoch += 1
         distance = 1. / n_batches
         epoch_step = epoch + step * distance
         loss = np.round(loss, 2)
@@ -106,9 +136,26 @@ class DLPlotter:
         to compare different experiments of a model regarding their loss to find
         the best configuration of hyperparameters.
 
-        :param exp_id: Unique identifier for an experiment. Type = str.
-        :param config: Configuration file of an experiment. Type = dict.
-        :param loss: Amount of loss calculated by your loss function. Type = float.
+        EXAMPLE:
+
+        plotter = DLPlotter()
+        model = MyModel()
+        ...
+        total_loss = 0
+        for epoch in range(5):
+            for step, (x, y) in enumerate(loader):
+                ...
+                output = model(x)
+                loss = loss_func(output, y)
+                total_loss += loss.item()
+                ...
+        config = dict(lr=0.001, batch_size=64, ...)
+        plotter.collect_parameter("exp001"", config, total_loss / (5 * len(loader))
+        plotter.construct()
+
+        :param (str) exp_id: Unique identifier for an experiment.
+        :param (dict) config: Configuration file of an experiment.
+        :param (float) loss: Amount of loss calculated by your loss function.
         """
 
         if not isinstance(config, dict):
@@ -134,6 +181,32 @@ class DLPlotter:
                         step: int,
                         weights: dict):
 
+        """
+        Collect the weights at each step to plot the learning progress of your model
+        of one or several experiments.
+
+        EXAMPLE:
+
+        plotter = DLPlotter()
+        model = MyModel()
+        ...
+        for epoch in range(5):
+            for step, (x, y) in enumerate(loader):
+                ...
+                weights = dict(layer1=model.layer1.weight.detach().clone(),
+                               layer2=model.layer2.weight.detach().clone(), ...)
+
+                plotter.collect_weights("exp001", len(loader), epoch, step, weights)
+                ...
+        plotter.construct()
+
+        :param (str) exp_id: Unique identifier of an experiment. (str)
+        :param (int) n_batches: Number of batchtes = total number of samples per epoch / batch size.
+        :param (int) epoch: Current number of epoch starting at 0.
+        :param (int) step: Current step within an epoch starting at 0.
+        :param (dict) weights: Weights of your model at each layer.
+        """
+
         if not isinstance(weights, dict):
             raise ValueError(f"Weights must be of type dict not {type(weights)}.")
 
@@ -153,6 +226,7 @@ class DLPlotter:
             if not isinstance(weights[key], torch.Tensor):
                 raise ValueError(f"Weight parameters must be of type torch tensor not {type(weights[key])}.")
 
+        epoch += 1
         distance = 1. / n_batches
         epoch_step = epoch + step * distance
 
@@ -217,7 +291,6 @@ class DLPlotter:
 class DashStruct:
     header = html.Header(children=[
                 html.H1(children="Deep Learning Analyser", className="header-title"),
-
                 html.P(children="Analyze the behavior of your DL models"
                                 " in a comprehensive and easy to use way.",
                        className="header-description", id="dscript")], className="header", id="app-page-header")
@@ -256,10 +329,10 @@ class DashStruct:
 
         if features:
             if features == 'multi_select':
-                dis_feat.append(_dropdown(**self.config[plot].Dropdown))
+                dis_feat.append(_multi_select(window+features, *list(self.config[plot].MSelect.values())))
 
             if features == 'cool_dropdown':
-                dis_feat.append(_cool_dropdown(**self.config[plot].CDropdown))
+                dis_feat.append(_cool_dropdown(self.config[plot].CDropdown))
 
         return self._structure(window,
                                [html.H2(**self.config[plot].Div)],

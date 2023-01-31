@@ -96,12 +96,12 @@ def train(num_epochs: int,
                         name = cnn._modules[f'layer{l}'].__class__.__name__
                         weights[f'({l}){name}'] = cnn._modules[f'layer{l}'].weight.detach().clone()
 
-                plotter.collect_weights(f"exp{num}", len(loaders[mode]), epoch + 1, i, weights)
+                plotter.collect_weights(f"exp{num}", len(loaders[mode]), epoch, i, weights)
 
             val_steps += 1
             val_loss += loss.item()
 
-            plotter.collect_loss(f"exp{num}", len(loaders[mode]), epoch + 1, i, loss.item(), mode)
+            plotter.collect_loss(f"exp{num}", len(loaders[mode]), epoch, i, loss.item(), mode)
 
         logger.info(f"{mode.upper()} Data for Epoch [{epoch} / {num_epochs-1}] collected.")
 

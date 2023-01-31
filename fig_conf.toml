@@ -14,7 +14,7 @@ color_scheme = "lightorange"
 name = "WeightFig"
 display_mode = "single"
 window = "weightWindow"
-features = "cool_dropdown"
+features = "multi_select"
 feat_pos = "right"
 
 [LossFig.data]
@@ -77,12 +77,6 @@ mode = "text"
 textposition = "top center"
 hoverinfo = "skip"
 
-[WeightFig.CDropdown]
-options = [ "exp0001", "exp0002", "exp0003",]
-className = "w_cd_id"
-placeholder = "Select an experiment"
-id = "w-model-id"
-
 [WeightFig.Div]
 children = "Weight Distribution"
 className = "weight-title"
@@ -109,6 +103,18 @@ color = "#99A8B2"
 gridcolor = "#99A8B2"
 griddash = "dot"
 zerolinecolor = "#99A8B2"
+
+[WeightFig.MSelect.drop1]
+options = [ "exp0001", "exp0002", "exp0003",]
+className = "w_mselect1"
+placeholder = "Select an experiment"
+id = "w-model-id1"
+
+[WeightFig.MSelect.drop2]
+options = [ "(0)Conv2d", "(1)Conv2d", "(2)Linear",]
+className = "w_mselect2"
+placeholder = "Select a layer"
+id = "w-model-id2"
 
 [LossFig.data.xaxis2.tickfont]
 color = "#99A8B2"

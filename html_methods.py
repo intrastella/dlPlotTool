@@ -16,45 +16,16 @@ from plotlyFigs import ParamsFig, LossFig
 from utils import PlotType, get_config, parser
 
 
-# nav , input , select, ul , il
+def _multi_select(className: str, *args):
+
+    rows = list()
+
+    for arg in args:
+        drop = dcc.Dropdown(**arg)
+        rows.append(dbc.Row(dbc.Col(drop, width=12)))
+
+    return dbc.Card(dbc.CardBody(rows), className=className)
 
 
-def _dropdown(options: List[str],
-              placeholder: str) -> list:
-
-    return [dbc.DropdownMenu(
-        color="#141619",
-        label=placeholder,
-        class_name="menu",
-        toggleClassName="items",
-        menu_variant="dark",
-        children=html.Div([
-            html.Div(dbc.DropdownMenuItem(op, class_name="item"), className="select-item") for op in options
-        ], className="drop"),
-    )]
-
-
-def _select(options: list,
-            id: str,
-            className: List[str],
-            placeholder: str) -> list:
-    selections = []
-    # [html.Ul(selections, className=className[1])]
-    for val in options:
-        selections.append(html.Li(children=val, className=className[1]))
-
-    return [dcc.Input(list=selections,
-                     type="text", id=id,
-                     placeholder=placeholder,
-                     className=className[0])]
-
-
-def _cool_dropdown(options: list,
-                   className: List[str],
-                   placeholder: str,
-                   id: str):
-    return dcc.Dropdown(
-        options=options,
-        placeholder=placeholder,
-        className=className,
-        id=id)
+def _cool_dropdown(kwargs):
+    return dcc.Dropdown(**kwargs)

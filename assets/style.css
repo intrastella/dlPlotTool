@@ -96,7 +96,7 @@ header{
 
 .weightWindow{
     position: relative;
-    padding-top: 2%;
+    padding-top: 1%;
     margin: 5% 5% 5% 5%;
     letter-spacing: 5px;
     width: 90%;
@@ -238,19 +238,28 @@ header{
 /* *************************************************** */
 /* COOL DROPDOWN */
 
-.w_cd_id {
+.w_mselect2,
+.w_mselect1 {
     position: relative;
     width: 90%;
-    margin: 2% 2% 2% 2%;
+    margin: 2% 2% 20% 3%;
     text-align: center;
     font-family: Helvetica;
     text-transform: uppercase;
     color: white;
     font-weight: 100;
 }
-
-.w_cd_id :hover {
+.w_mselect2 :hover
+.w_mselect1 :hover {
   transition: .2s ease-in-out;
+}
+
+.weightWindowmulti_select {
+    position: relative;
+    margin: 2% 0% 2% 4%;
+    background-color: #141619;
+    border-radius: 0px;
+    border-color: #141619; !important
 }
 
 /* *************************************************** */
@@ -293,39 +302,6 @@ header{
     font-size: 18px;
     color: white;
     transition: .3s ease-in-out;
-}
-
-/* *************************************************** */
-
-
-/* *************************************************** */
-/* SELECT */
-
-.chosen-value {
-  top: 0;
-  left: 0;
-  font-family: Helvetica;
-  position: relative;
-  border-radius: 0px;
-  font-weight: 400;
-  border-color: #000000;
-  letter-spacing: 6px;
-}
-
-.chosen-value,
-.value-list {
-  overflow: hidden;
-  text-transform: uppercase;
-  transition: .3s ease-in-out;
-  border-radius: 0px;
-  width: 100%;
-}
-
-.value-list {
-  box-shadow: 2px 0px 2px 0px rgba(0,0,0,0.2);
-  text-align: center;
-  max-height:50%;/* you can change as you need it */
-  overflow:auto;
 }
 
 /* *************************************************** */
