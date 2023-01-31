@@ -233,7 +233,7 @@ class DashStruct:
 
         self.app.callback(
             dash.dependencies.Output(PlotType.LossFig.value, 'figure'),
-            [dash.dependencies.Input('model-id', 'value')])(self.update_graphs)
+            [dash.dependencies.Input('model-id', 'value')])(self._single_drop_update)
 
         '''self.app.callback(
             dash.dependencies.Output(PlotType.WeightFig.value, 'figure'),
@@ -249,34 +249,49 @@ class DashStruct:
                plot: str,
                features: Union[str, list] = None,
                display_mode: str = 'single',
-               **kwargs):
+               feat_pos: str = None,
+               **kwargs) -> dbc.Col:
 
-        content = [html.H2(**self.config[plot].Div), dcc.Graph(**self.config[plot].Graph, **kwargs, responsive=True)]
+        dis_feat = list()
 
         if features:
-            if isinstance(features, str):
-                features = [features]
+            if features == 'multi_select':
+                dis_feat.append(_dropdown(**self.config[plot].Dropdown))
 
-            for feature in features:
-                content_feat = list()
+            if features == 'cool_dropdown':
+                dis_feat.append(_cool_dropdown(**self.config[plot].CDropdown))
 
-                if feature == 'multi_select':
-                    content_feat = _dropdown(**self.config[plot].Dropdown)
+        return self._structure(window,
+                               [html.H2(**self.config[plot].Div)],
+                               [dcc.Graph(**self.config[plot].Graph, **kwargs, responsive=True)],
+                               display_mode,
+                               dis_feat,
+                               feat_pos)
 
-                if feature == 'cool_dropdown':
-                    content_feat = _cool_dropdown(**self.config[plot].CDropdown)
+    @staticmethod
+    def _structure(window: str,
+                   title: list,
+                   graph: list,
+                   display_mode: str,
+                   dis_feat: list,
+                   feat_pos=None) -> dbc.Col:
 
-                if feature == 'select':
-                    content_feat = _select(**self.config[plot].Select)
+        if display_mode == 'single':
+            rows = [dbc.Row(dbc.Col(html.Div(children=title)))]
 
-                if display_mode == 'single':
-                    content = [dbc.Col(content), dbc.Col(content_feat)]
-                else:
-                    content = content[:1] + content_feat + content[1:]
+            if feat_pos:
+                rows.append(dbc.Row([dbc.Col(html.Div(graph), width=6), dbc.Col(html.Div(dis_feat), width=6)]))
+            else:
+                rows += [dbc.Row(dbc.Col(dis_feat, width=12)), dbc.Row(dbc.Col(graph, width=12))]
 
-        return html.Div(children=content, className=window)
+            section = dbc.Col(dbc.Card(dbc.CardBody(rows), className=window), width=12)
 
-    def update_graphs(self, input_parameter):
+        else:
+            section = dbc.Col(dbc.Card(dbc.CardBody(title + dis_feat + graph), className=window), width=6)
+
+        return section
+
+    def _single_drop_update(self, input_parameter):
         """
         Collect data in DLPlotter and send the instantiated class to DashStruct.
         S.t.: w/ fig.setup(input_parameter) returns a new fig to update current fig
@@ -318,18 +333,18 @@ class DashStruct:
 
             if fig.window_data.display_mode == 'single':
                 page.append(dbc.Row(children=sections))
-                page.append(dbc.Row(children=[self.window(**fig.window_data)]))
+                page.append(dbc.Row(children=self.window(**fig.window_data)))
                 sections = []
 
             else:
                 if count < 2:
-                    sections.append(dbc.Col(self.window(**fig.window_data), width=6))
+                    sections.append(self.window(**fig.window_data))
                     if i + 1 == len(self.figs):
                         page.append(dbc.Row(children=sections, className="section1"))
                     count += 1
                 else:
                     page.append(dbc.Row(children=sections))
-                    sections = [dbc.Col(self.window(**fig.window_data), width=6)]
+                    sections = [self.window(**fig.window_data)]
                     count = 0
 
         self.app.layout = html.Div(children=page)

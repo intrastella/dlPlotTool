@@ -15,6 +15,7 @@ name = "WeightFig"
 display_mode = "single"
 window = "weightWindow"
 features = "cool_dropdown"
+feat_pos = "right"
 
 [LossFig.data]
 paper_bgcolor = "#2E3337"

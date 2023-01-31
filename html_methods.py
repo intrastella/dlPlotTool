@@ -52,9 +52,9 @@ def _select(options: list,
 def _cool_dropdown(options: list,
                    className: List[str],
                    placeholder: str,
-                   id: str) -> list:
-    return [dcc.Dropdown(
+                   id: str):
+    return dcc.Dropdown(
         options=options,
         placeholder=placeholder,
         className=className,
-        id=id)]
+        id=id)

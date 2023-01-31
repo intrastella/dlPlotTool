@@ -30,10 +30,8 @@ class PlotType(ExtendedEnum):
 
 
 class Schema(ExtendedEnum):
-    DarkBlue = "darkblue"
     LightBlue = "lightblue"
     LightGreen = "lightgreen"
-    DarkRed = "darkred"
     LightOrange = "lightorange"
     Violet = "violet"
 
@@ -135,16 +133,9 @@ class ColorPicker:
 
     def color_range(self, n):
         n += 2
-
-        if self.color_schema == Schema.DarkBlue.value:
-            cmap = mpl.colormaps['twilight']
-            indices = np.linspace(30, 215, n)
-            self.rgb = [cmap.colors[int(i)] for i in indices][1: n - 1]
-
         if self.color_schema == Schema.LightBlue.value:
-            map = sns.color_palette("blend:#7AB,#EDA", n).as_hex()
             # Mark or Crest
-            self.rgb = hex_to_rgb(map)
+            self.rgb = sns.color_palette("blend:#7AB,#EDA", n)
 
         if self.color_schema == Schema.LightGreen.value:
             cmap = mpl.colormaps['viridis']
@@ -152,9 +143,7 @@ class ColorPicker:
             self.rgb = [cmap.colors[int(i)] for i in indices][1: n - 1]
 
         if self.color_schema == Schema.LightOrange.value:
-            cmap = mpl.colormaps['inferno']
-            indices = np.linspace(100, 255, n)
-            self.rgb = [cmap.colors[int(i)] for i in indices][1: n - 1]
+            self.rgb = sns.color_palette("YlOrBr")
 
         if self.color_schema == Schema.Violet.value:
             cmap = mpl.colormaps['viridis']

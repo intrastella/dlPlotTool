@@ -1,74 +1,30 @@
-[2023-01-31 11:06:49,163] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [0 / 1] collected.
-[2023-01-31 11:06:50,185] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [1 / 1] collected.
-[2023-01-31 11:06:50,186] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0001 collected.
-[2023-01-31 11:06:50,714] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [0 / 1] collected.
-[2023-01-31 11:06:51,298] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [1 / 1] collected.
-[2023-01-31 11:06:52,320] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [0 / 0] collected.
-[2023-01-31 11:06:52,320] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0002 collected.
-[2023-01-31 11:06:52,817] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [0 / 0] collected.
-[2023-01-31 11:06:53,723] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [0 / 0] collected.
-[2023-01-31 11:06:53,724] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0003 collected.
-[2023-01-31 11:06:54,200] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [0 / 0] collected.
-[2023-01-31 11:06:54,367] INFO [plotlyFigs.plotlyFigs.setup:124] Figure for Loss Plot set up.
-[2023-01-31 11:06:54,653] INFO [plotlyFigs.plotlyFigs.setup:370] Figure for Weight Plot set up.
-[2023-01-31 11:06:54,654] INFO [constructor.constructor._build_plt:207] Fetching figure objects for Dashboard completed.
-[2023-01-31 11:06:54,664] INFO [constructor.dash.run:1968] Dash is running on http://127.0.0.1:8050/
+[2023-01-31 15:01:49,684] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [0 / 1] collected.
+[2023-01-31 15:01:51,133] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [1 / 1] collected.
+[2023-01-31 15:01:51,133] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0001 collected.
+[2023-01-31 15:01:51,734] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [0 / 1] collected.
+[2023-01-31 15:01:52,366] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [1 / 1] collected.
+[2023-01-31 15:01:53,630] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [0 / 0] collected.
+[2023-01-31 15:01:53,630] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0002 collected.
+[2023-01-31 15:01:54,947] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [0 / 0] collected.
+[2023-01-31 15:01:57,298] INFO [__main__.test_complete_run.train:106] TRAIN Data for Epoch [0 / 0] collected.
+[2023-01-31 15:01:57,299] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0003 collected.
+[2023-01-31 15:01:57,969] INFO [__main__.test_complete_run.train:106] VALIDATION Data for Epoch [0 / 0] collected.
+[2023-01-31 15:01:58,125] INFO [plotlyFigs.plotlyFigs.setup:126] Figure for Loss Plot set up.
+[2023-01-31 15:01:58,536] INFO [plotlyFigs.plotlyFigs.setup:373] Figure for Weight Plot set up.
+[2023-01-31 15:01:58,536] INFO [constructor.constructor._build_plt:207] Fetching figure objects for Dashboard completed.
+[2023-01-31 15:01:58,551] INFO [constructor.dash.run:1968] Dash is running on http://127.0.0.1:8050/
 
-[2023-01-31 11:06:54,665] INFO [werkzeug._internal._log:224] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+[2023-01-31 15:01:58,552] INFO [werkzeug._internal._log:224] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:8050
-[2023-01-31 11:06:54,665] INFO [werkzeug._internal._log:224] [33mPress CTRL+C to quit[0m
-[2023-01-31 11:07:01,290] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "GET / HTTP/1.1" 200 -
-[2023-01-31 11:07:01,441] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "[36mGET /assets/style.css?m=1675133021.871526 HTTP/1.1[0m" 304 -
-[2023-01-31 11:07:01,454] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "[36mGET /assets/script.js?m=1674940570.380345 HTTP/1.1[0m" 304 -
-[2023-01-31 11:07:01,548] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "[33mGET /assets/compass/css3 HTTP/1.1[0m" 404 -
-[2023-01-31 11:07:01,553] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "[33mGET /assets/compass/reset HTTP/1.1[0m" 404 -
-[2023-01-31 11:07:01,813] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "GET /_dash-dependencies HTTP/1.1" 200 -
-[2023-01-31 11:07:01,841] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "GET /_dash-layout HTTP/1.1" 200 -
-[2023-01-31 11:07:01,877] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:07:01,888] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "[36mGET /_dash-component-suites/dash/dcc/async-plotlyjs.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:07:01,901] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "[36mGET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:07:01,972] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:07:01] "POST /_dash-update-component HTTP/1.1" 200 -
-[2023-01-31 11:08:48,301] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "GET / HTTP/1.1" 200 -
-[2023-01-31 11:08:48,387] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "GET /assets/style.css?m=1675159725.6728864 HTTP/1.1" 200 -
-[2023-01-31 11:08:48,406] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "[36mGET /assets/script.js?m=1674940570.380345 HTTP/1.1[0m" 304 -
-[2023-01-31 11:08:48,432] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "[33mGET /assets/compass/css3 HTTP/1.1[0m" 404 -
-[2023-01-31 11:08:48,434] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "[33mGET /assets/compass/reset HTTP/1.1[0m" 404 -
-[2023-01-31 11:08:48,583] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "GET /_dash-dependencies HTTP/1.1" 200 -
-[2023-01-31 11:08:48,625] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "GET /_dash-layout HTTP/1.1" 200 -
-[2023-01-31 11:08:48,655] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:08:48,672] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "[36mGET /_dash-component-suites/dash/dcc/async-plotlyjs.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:08:48,682] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "[36mGET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:08:48,704] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:08:48] "POST /_dash-update-component HTTP/1.1" 200 -
-[2023-01-31 11:09:20,221] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "GET / HTTP/1.1" 200 -
-[2023-01-31 11:09:20,281] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "GET /assets/style.css?m=1675159758.3211734 HTTP/1.1" 200 -
-[2023-01-31 11:09:20,297] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "[33mGET /assets/compass/css3 HTTP/1.1[0m" 404 -
-[2023-01-31 11:09:20,314] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "[36mGET /assets/script.js?m=1674940570.380345 HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:20,315] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "[33mGET /assets/compass/reset HTTP/1.1[0m" 404 -
-[2023-01-31 11:09:20,475] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "GET /_dash-dependencies HTTP/1.1" 200 -
-[2023-01-31 11:09:20,519] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "GET /_dash-layout HTTP/1.1" 200 -
-[2023-01-31 11:09:20,558] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:20,571] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "[36mGET /_dash-component-suites/dash/dcc/async-plotlyjs.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:20,577] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "[36mGET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:20,626] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:20] "POST /_dash-update-component HTTP/1.1" 200 -
-[2023-01-31 11:09:54,856] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:54] "GET / HTTP/1.1" 200 -
-[2023-01-31 11:09:54,933] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:54] "GET /assets/style.css?m=1675159792.389473 HTTP/1.1" 200 -
-[2023-01-31 11:09:54,950] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:54] "[36mGET /assets/script.js?m=1674940570.380345 HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:54,983] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:54] "[33mGET /assets/compass/css3 HTTP/1.1[0m" 404 -
-[2023-01-31 11:09:54,988] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:54] "[33mGET /assets/compass/reset HTTP/1.1[0m" 404 -
-[2023-01-31 11:09:55,124] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:55] "GET /_dash-dependencies HTTP/1.1" 200 -
-[2023-01-31 11:09:55,161] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:55] "GET /_dash-layout HTTP/1.1" 200 -
-[2023-01-31 11:09:55,195] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:55] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:55,211] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:55] "[36mGET /_dash-component-suites/dash/dcc/async-plotlyjs.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:55,216] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:55] "[36mGET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:09:55,226] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:09:55] "POST /_dash-update-component HTTP/1.1" 200 -
-[2023-01-31 11:10:38,626] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "GET / HTTP/1.1" 200 -
-[2023-01-31 11:10:38,693] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "GET /assets/style.css?m=1675159835.501852 HTTP/1.1" 200 -
-[2023-01-31 11:10:38,711] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "[36mGET /assets/script.js?m=1674940570.380345 HTTP/1.1[0m" 304 -
-[2023-01-31 11:10:38,720] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "[33mGET /assets/compass/css3 HTTP/1.1[0m" 404 -
-[2023-01-31 11:10:38,722] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "[33mGET /assets/compass/reset HTTP/1.1[0m" 404 -
-[2023-01-31 11:10:38,876] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "GET /_dash-dependencies HTTP/1.1" 200 -
-[2023-01-31 11:10:38,916] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "GET /_dash-layout HTTP/1.1" 200 -
-[2023-01-31 11:10:38,955] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:10:38,961] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "[36mGET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:10:38,966] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "[36mGET /_dash-component-suites/dash/dcc/async-plotlyjs.js HTTP/1.1[0m" 304 -
-[2023-01-31 11:10:38,991] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 11:10:38] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-01-31 15:01:58,552] INFO [werkzeug._internal._log:224] [33mPress CTRL+C to quit[0m
+[2023-01-31 15:02:02,729] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:02] "GET / HTTP/1.1" 200 -
+[2023-01-31 15:02:02,972] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:02] "GET /assets/script.js?m=1674940570.380345 HTTP/1.1" 200 -
+[2023-01-31 15:02:02,975] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:02] "GET /assets/style.css?m=1675169723.661792 HTTP/1.1" 200 -
+[2023-01-31 15:02:03,047] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "[33mGET /assets/compass/css3 HTTP/1.1[0m" 404 -
+[2023-01-31 15:02:03,062] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "[33mGET /assets/compass/reset HTTP/1.1[0m" 404 -
+[2023-01-31 15:02:03,282] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "GET /_dash-dependencies HTTP/1.1" 200 -
+[2023-01-31 15:02:03,344] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "GET /_dash-layout HTTP/1.1" 200 -
+[2023-01-31 15:02:03,395] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
+[2023-01-31 15:02:03,410] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "[36mGET /_dash-component-suites/dash/dcc/async-plotlyjs.js HTTP/1.1[0m" 304 -
+[2023-01-31 15:02:03,413] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "[36mGET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
+[2023-01-31 15:02:03,579] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [31/Jan/2023 15:02:03] "POST /_dash-update-component HTTP/1.1" 200 -

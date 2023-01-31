@@ -33,6 +33,7 @@ class WindowFig:
         self.plot = None
         self.window = None
         self.features = None
+        self.feat_pos = None
         self.display_mode = None
         self._window_data = None
 
@@ -56,6 +57,7 @@ class WindowFig:
                                      plot=self.plot,
                                      features=self.features,
                                      display_mode=self.display_mode,
+                                     feat_pos=self.feat_pos,
                                      figure=self.fig))
         return self._window_data
 
@@ -280,7 +282,8 @@ class WeightFig(WindowFig):
         super(WeightFig, self).__init__(weight_data)
 
         self.display_mode = self.config.WeightFig.display_mode
-        self.features = self.config.LossFig.features
+        self.features = self.config.WeightFig.features
+        self.feat_pos = self.config.WeightFig.feat_pos
         self.window = self.config.WeightFig.window
         self.plot = self.config.WeightFig.name
         self.fig = go.Figure()
