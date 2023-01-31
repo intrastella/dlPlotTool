@@ -87,6 +87,39 @@ header{
 /* *************************************************** */
 /* PLOT SETTINGS */
 
+.weight-title {
+     fontSize: 16px;
+     font-weight: 100;
+     color: #E2E8EE;
+     text-align: center;
+}
+
+.weightWindow{
+    position: relative;
+    padding-top: 2%;
+    margin: 5% 5% 5% 5%;
+    letter-spacing: 5px;
+    width: 90%;
+    height: 600px;
+    background-color: #141619;
+    display: inline-block;
+    box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.2);
+}
+
+.weight-fig{
+    position: relative;
+    background-color: #141619;
+    padding: 0% 0% 0% 0%;
+    margin: 2% 3% 2% 3%;
+    letter-spacing: .5px;
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto\9;
+}
+
+
+
 
 .loss-title {
      fontSize: 16px;
@@ -197,6 +230,27 @@ header{
 .select-item {
   position: relative;
   width: 950px;
+}
+
+/* *************************************************** */
+
+
+/* *************************************************** */
+/* COOL DROPDOWN */
+
+.w_cd_id {
+    position: relative;
+    width: 90%;
+    margin: 2% 2% 2% 2%;
+    text-align: center;
+    font-family: Helvetica;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 100;
+}
+
+.w_cd_id :hover {
+  transition: .2s ease-in-out;
 }
 
 /* *************************************************** */

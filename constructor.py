@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import Union
 
@@ -16,6 +17,15 @@ import dash_bootstrap_components as dbc
 from html_methods import _dropdown, _select, _cool_dropdown
 from plotlyFigs import ParamsFig, LossFig, WeightFig
 from utils import PlotType, get_config, parser
+
+
+cwd = Path(__file__).resolve().parent
+logging.basicConfig(level=logging.INFO,
+                    filename=f'{cwd}/std.log',
+                    format="[%(asctime)s] %(levelname)s [%(name)s.%(module)s.%(funcName)s:%(lineno)d] %(message)s",
+                    filemode='w')
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
 
 
 class DLPlotter:
@@ -149,7 +159,7 @@ class DLPlotter:
         if exp_id in self._gradients:
             self._gradients[exp_id].step.append(epoch_step)
             for key in list(weights.keys()):
-                self._gradients[exp_id].weights_path[key].append(weights[key])
+                self._gradients[exp_id].weights[key].append(weights[key])
 
         else:
             for key in list(weights.keys()):
@@ -176,7 +186,6 @@ class DLPlotter:
             figs.append(paras)
 
         if self._loss:
-            cwd = Path(__file__).resolve().parent
             data_dir = cwd / "fig_conf.toml"
             with open(data_dir) as f:
                 data = f.read()
@@ -194,6 +203,8 @@ class DLPlotter:
             weights = WeightFig(self._gradients)
             weights.get_fig()
             figs.append(weights)
+
+        logger.info("Fetching figure objects for Dashboard completed.")
 
         return figs
 
@@ -223,6 +234,10 @@ class DashStruct:
         self.app.callback(
             dash.dependencies.Output(PlotType.LossFig.value, 'figure'),
             [dash.dependencies.Input('model-id', 'value')])(self.update_graphs)
+
+        '''self.app.callback(
+            dash.dependencies.Output(PlotType.WeightFig.value, 'figure'),
+            [dash.dependencies.Input('w-model-id', 'value')])(self.update_graphs1)'''
 
         self.app.clientside_callback(
             ClientsideFunction("clientside", "stickyHeader"),
@@ -254,9 +269,10 @@ class DashStruct:
                 if feature == 'select':
                     content_feat = _select(**self.config[plot].Select)
 
-                content = content[:1] + content_feat + content[1:]
-
-        content.append(html.Div(children="Hallo", style={'height': '500px'}))
+                if display_mode == 'single':
+                    content = [dbc.Col(content), dbc.Col(content_feat)]
+                else:
+                    content = content[:1] + content_feat + content[1:]
 
         return html.Div(children=content, className=window)
 
@@ -269,6 +285,16 @@ class DashStruct:
         for fig in self.figs:
             if fig.window_data.features:
                 return fig.setup(input_parameter)
+
+    def _multi_drop_update(self, input_parameter):
+        """
+        Collect data in DLPlotter and send the instantiated class to DashStruct.
+        S.t.: w/ fig.setup(input_parameter) returns a new fig to update current fig
+        :return: matplotlib and any subclass figures like plotly
+        """
+        fig = self.figs[2]
+        if fig.window_data.features:
+            return fig.setup(input_parameter)
 
     def set_prop(self, fig):
         """
@@ -292,7 +318,7 @@ class DashStruct:
 
             if fig.window_data.display_mode == 'single':
                 page.append(dbc.Row(children=sections))
-                page.append(dbc.Row(children=list(dbc.Col(self.window(**fig.window_data), width=12))))
+                page.append(dbc.Row(children=[self.window(**fig.window_data)]))
                 sections = []
 
             else:

@@ -1,6 +1,8 @@
+import logging
 from pathlib import Path
 from typing import List
 
+import numpy as np
 import toml
 import torch
 from torch.autograd import Variable
@@ -12,6 +14,15 @@ from torchvision.transforms import ToTensor
 from torch.utils.data import DataLoader
 
 from constructor import DLPlotter
+
+
+cwd = Path(__file__).resolve().parent
+logging.basicConfig(level=logging.INFO,
+                    filename=f'{cwd}/std.log',
+                    format="[%(asctime)s] %(levelname)s [%(name)s.%(module)s.%(funcName)s:%(lineno)d] %(message)s",
+                    filemode='w')
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -75,10 +86,6 @@ def train(num_epochs: int,
             loss.backward()
             optimizer.step()
 
-            if (i + 1) % 100 == 0:
-                print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'
-                      .format(epoch + 1, num_epochs, i + 1, total_step, loss.item()))
-
             if mode == 'train':
                 weights = dict()
                 for l in range(3):
@@ -96,12 +103,16 @@ def train(num_epochs: int,
 
             plotter.collect_loss(f"exp{num}", len(loaders[mode]), epoch + 1, i, loss.item(), mode)
 
+        logger.info(f"{mode.upper()} Data for Epoch [{epoch} / {num_epochs-1}] collected.")
+
     if mode == 'train':
         output_file_name = exp_dir / f"exp{num}.toml"
         with open(output_file_name, "w") as toml_file:
             toml.dump(config, toml_file)
 
         plotter.collect_parameter(f"exp{num}", config, val_loss / val_steps)
+
+        logger.info(f"Hyperparameters for Experiment exp{num} collected.")
 
 
 def run(epochs: List[int], lr: List[float], batch_size: List[int], exp_names: List[str]):
@@ -120,6 +131,9 @@ def run(epochs: List[int], lr: List[float], batch_size: List[int], exp_names: Li
         train=False,
         transform=ToTensor()
     )
+
+    train_data = torch.utils.data.Subset(train_data, np.arange(0, 2560, 1))
+    val_data = torch.utils.data.Subset(val_data, np.arange(0, 1280, 1))
 
     plotter = DLPlotter()
     for e, l, b, n in zip(epochs, lr, batch_size, exp_names):
@@ -153,8 +167,8 @@ def run(epochs: List[int], lr: List[float], batch_size: List[int], exp_names: Li
 
 
 if __name__ == "__main__":
-    test_data = dict(epochs=[2, 3, 1][:2],
-                     lr=[0.002, 0.01, 0.0005][:2],
-                     batch_size=[32, 64, 128][:2],
-                     exp_names=['0001', '0002', '0003'][:2])
+    test_data = dict(epochs=[2, 1, 1],
+                     lr=[0.002, 0.01, 0.0005],
+                     batch_size=[32, 64, 128],
+                     exp_names=['0001', '0002', '0003'])
     run(**test_data)

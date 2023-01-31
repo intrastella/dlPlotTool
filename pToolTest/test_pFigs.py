@@ -33,8 +33,8 @@ def TestWightPLot(size):
     idx = 5
 
     # dist, xaxis_range = weightplot._get_weight_dist(exp, layer, step, idx)
-    # weightplot.get_fig()
-    # plotly.offline.iplot(weightplot.fig)
+    weightplot.get_fig()
+    plotly.offline.iplot(weightplot.fig)
 
     # self.assertEqual(torch.min(dist), 0) assert torch.min(dist) >= 0
 
@@ -91,5 +91,5 @@ def TestLossPLot():
 
 if __name__ == '__main__':
     # unittest.main()
-    TestParamsPLot()
-    # TestWightPLot('small')
+    # TestParamsPLot()
+    TestWightPLot('large')

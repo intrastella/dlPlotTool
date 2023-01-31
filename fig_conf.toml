@@ -10,6 +10,12 @@ display_mode = "double"
 window = "paraWindow"
 color_scheme = "lightorange"
 
+[WeightFig]
+name = "WeightFig"
+display_mode = "single"
+window = "weightWindow"
+features = "cool_dropdown"
+
 [LossFig.data]
 paper_bgcolor = "#2E3337"
 plot_bgcolor = "#2E3337"
@@ -37,18 +43,8 @@ className = "loss-title"
 className = "loss-fig"
 id = "LossFig"
 
-[LossFig.Select]
-options = [ "exp0001", "exp0002", "exp0003",]
-id = "model-id"
-className = [ "chosen-value", "value-list",]
-placeholder = "Select an experiment"
-
-[LossFig.Dropdown]
-options = [ "exp0001", "exp0002", "exp0003", "exp0004", "exp0005", "exp0006", "exp0007", "exp0008", "exp0009",]
-placeholder = "Select an experiment"
-
 [LossFig.CDropdown]
-options = [ "exp0001", "exp0002",]
+options = [ "exp0001", "exp0002", "exp0003",]
 className = "cd_id"
 placeholder = "Select an experiment"
 id = "model-id"
@@ -79,6 +75,20 @@ side = "left"
 mode = "text"
 textposition = "top center"
 hoverinfo = "skip"
+
+[WeightFig.CDropdown]
+options = [ "exp0001", "exp0002", "exp0003",]
+className = "w_cd_id"
+placeholder = "Select an experiment"
+id = "w-model-id"
+
+[WeightFig.Div]
+children = "Weight Distribution"
+className = "weight-title"
+
+[WeightFig.Graph]
+className = "weight-fig"
+id = "WeightFig"
 
 [LossFig.data.xaxis2]
 title = "<b>Valid</b> Epoch"

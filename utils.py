@@ -1,9 +1,12 @@
 import logging
+from copy import copy
 from enum import Enum
+from functools import partial
 from pathlib import Path
 from typing import Union
 
 import toml
+import torch
 from box import Box
 
 import matplotlib as mpl
@@ -23,6 +26,7 @@ class ExtendedEnum(Enum):
 class PlotType(ExtendedEnum):
     ParamsFig = "ParamsFig"
     LossFig = "LossFig"
+    WeightFig = "WeightFig"
 
 
 class Schema(ExtendedEnum):
@@ -43,9 +47,12 @@ class memorize(dict):
     def __call__(self, *args):
         return self[args]
 
-    def __missing__(self, *key):
+    def __missing__(self, key):
         result = self[key] = self.func(*key)
         return result
+
+    def __get__(self, instance, owner):
+        return partial(self, instance)
 
 
 def get_config():
@@ -64,7 +71,7 @@ def parser(size: int):
     # 2. make everything after that empty
     # 3. add new css lines
 
-    cwd = Path().absolute()
+    cwd = Path(__file__).resolve().parent
 
     with open(cwd/'assets/style.css') as f_input:
         css = f_input.read()
@@ -87,6 +94,19 @@ def parser(size: int):
 
 
 def get_interpolation_data(x, y, deg, inter_step):
+
+    if isinstance(x, torch.Tensor):
+        x = x.numpy()
+
+    if isinstance(x, list):
+        x = np.array(x)
+
+    if isinstance(y, torch.Tensor):
+        y = y.numpy()
+
+    if isinstance(y, list):
+        y = np.array(y)
+
     x_steps = x[::inter_step]
     data_len = len(x_steps)
     y_avg = [np.sum(y[i*inter_step: (i + 1)*inter_step])/inter_step for i in range(data_len)]
@@ -132,7 +152,7 @@ class ColorPicker:
             self.rgb = [cmap.colors[int(i)] for i in indices][1: n - 1]
 
         if self.color_schema == Schema.LightOrange.value:
-            cmap = mpl.colormaps['plasma']
+            cmap = mpl.colormaps['inferno']
             indices = np.linspace(100, 255, n)
             self.rgb = [cmap.colors[int(i)] for i in indices][1: n - 1]
 

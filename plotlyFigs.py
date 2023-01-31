@@ -1,4 +1,5 @@
 import copy
+import logging
 from functools import cached_property
 from typing import Union, Tuple
 from pathlib import Path
@@ -12,6 +13,15 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 from utils import get_config, get_interpolation_data, ColorPicker, memorize
+
+
+cwd = Path(__file__).resolve().parent
+logging.basicConfig(level=logging.INFO,
+                    filename=f'{cwd}/std.log',
+                    format="[%(asctime)s] %(levelname)s [%(name)s.%(module)s.%(funcName)s:%(lineno)d] %(message)s",
+                    filemode='w')
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
 
 
 class WindowFig:
@@ -51,6 +61,10 @@ class WindowFig:
 
 
 class LossFig(WindowFig):
+
+    '''
+    interpolation needs to be fixed regarding their bounds / updated
+    '''
 
     def __init__(self, loss_data: dict):
         super(LossFig, self).__init__(loss_data)
@@ -106,6 +120,8 @@ class LossFig(WindowFig):
                 self.fig.add_trace(inter_loss, secondary_y=False)
 
             self._update_figure(xlimit, ylimit)
+
+            logger.info(f"Figure for Loss Plot set up.")
 
         return self.fig
 
@@ -263,6 +279,10 @@ class WeightFig(WindowFig):
     def __init__(self, weight_data: dict):
         super(WeightFig, self).__init__(weight_data)
 
+        self.display_mode = self.config.WeightFig.display_mode
+        self.features = self.config.LossFig.features
+        self.window = self.config.WeightFig.window
+        self.plot = self.config.WeightFig.name
         self.fig = go.Figure()
 
     def get_fig(self):
@@ -277,42 +297,113 @@ class WeightFig(WindowFig):
             self.fig = None
 
             traces = list()
-            for idx, step in enumerate(self.data[exp].step):
+
+            sub = 1
+            if len(self.data[exp].step) > 150:
+                sub = len(self.data[exp].step) // 150
+
+            all_d = torch.tensor([0])
+
+            for idx, step in enumerate(self.data[exp].step[::sub]):
+                dist, _, _ = self._get_weight_dist(exp, layer, step, idx)
+                all_d = torch.concat((all_d, dist))
+
+            all_d, indices = torch.sort(all_d)
+
+            for idx, step in enumerate(self.data[exp].step[::sub]):
                 dist, xaxis_range, step_range = self._get_weight_dist(exp, layer, step, idx)
 
+                kernel_size = 10
+                kernel = np.ones(kernel_size) / kernel_size
+                dist_convolved = np.convolve(dist, kernel, mode='valid')
+
+                # PuOr
+
                 trace = go.Scatter3d(
-                    x=xaxis_range, y=step_range, z=dist,
+                    x=xaxis_range, y=step_range, z=dist_convolved,
                     mode="lines",
-                    line=dict(colorscale='rdylbu', width=1)
+                    line=dict(colorscale='rdylbu', width=1, color=dist, cmax=.3, cmin=-.2),
+                    hovertemplate="<br>".join([
+                        "weight: %{x}",
+                        "epoch: %{y}",
+                        "p: %{z}",
+                    ])
                 )
                 traces.append(trace)
 
             self.fig = go.Figure(data=traces)
 
-        ## norm = mpl.colors.Normalize(vmin=0, vmax=1)
+            self.fig.update_layout(scene=dict(
+                xaxis_title='Parameter values',
+                yaxis_title='Epoch',
+                zaxis_title='Distribution'),
+                paper_bgcolor="#2E3337",
+                font_color="#99A8B2",
+                margin=dict(r=20, b=10, l=10, t=10),
+                title=f"Experiment: {exp.upper()} \t Layer: {layer}",
+                title_y=0.95,
+
+            )
+
+            self.fig.update_layout(scene=dict(
+                xaxis=dict(
+                    backgroundcolor="#2E3337",
+                    gridcolor="#99A8B2",
+                    showbackground=True,
+                    zerolinecolor="#99A8B2"
+                ),
+                yaxis=dict(
+                    backgroundcolor="#2E3337",
+                    gridcolor="#99A8B2",
+                    showbackground=True,
+                    zerolinecolor="#99A8B2"
+                ),
+                zaxis=dict(
+                    backgroundcolor="#2E3337",
+                    gridcolor="#99A8B2",
+                    showbackground=True,
+                    zerolinecolor="#99A8B2", ),
+            ))
+
+            self._set_legend()
+
+            logger.info(f"Figure for Weight Plot set up.")
+
+            return self.fig
 
     def _get_weight_dist(self, exp: str, layer: str, step: float, idx: int):
-        params = self.data[exp].weights[layer]
-        params = torch.stack(params)
+        sub = 1
+        if len(self.data[exp].weights[layer]) > 150:
+            sub = len(self.data[exp].weights[layer]) // 150
+        params = self.data[exp].weights[layer][::sub]
+
+        params = torch.stack(params)    # only commented out for testing , format of test data wrong
 
         min_val = torch.min(torch.FloatTensor(params)).item()
         max_val = torch.max(torch.FloatTensor(params)).item()
 
         decimal = torch.round(torch.log10(abs(torch.tensor(min_val)))).item()
-        decimal = abs(2 - int(decimal))
+        decimal = abs(1 - int(decimal)) # original 2
 
         decimal1 = torch.round(torch.log10(abs(torch.tensor(max_val)))).item()
-        decimal1 = abs(2 - int(decimal1))
+        decimal1 = abs(1 - int(decimal1)) # original 2
 
         dec = max(decimal, decimal1)
 
         frequencies = calc_freq(params[idx], dec)
 
         dist = frequencies / len(frequencies)
+        dist = torch.round(dist, decimals=2)
+
         xaxis_range = torch.linspace(min_val, max_val, len(frequencies))
         step_range = torch.tensor([step] * len(frequencies))
+        xaxis_range = torch.round(xaxis_range, decimals=3)
 
         return dist, xaxis_range, step_range
+
+    def _set_legend(self):
+        for trace in self.fig['data']:
+            trace['showlegend'] = False
 
 
 def calc_freq(x, dec):
