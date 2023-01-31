@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import plotly
 from box import Box
 
 import torch
@@ -123,7 +124,7 @@ class LossFig(WindowFig):
 
             self._update_figure(xlimit, ylimit)
 
-            logger.info(f"Figure for Loss Plot set up.")
+            logger.info(f"Figure for Loss Plot building with {exp} is done.")
 
         return self.fig
 
@@ -286,93 +287,83 @@ class WeightFig(WindowFig):
         self.feat_pos = self.config.WeightFig.feat_pos
         self.window = self.config.WeightFig.window
         self.plot = self.config.WeightFig.name
-        self.fig = go.Figure()
 
     def get_fig(self):
-        exp = 'exp0001'
-        layer = '(0)Conv2d'
-        self.setup(exp, layer)
+        self.setup()
 
     @memorize
-    def setup(self, exp, layer):
+    def setup(self, exp=None, layer=None):
+        if not exp:
+            exp = list(self.data.keys())[0]
 
-        if exp:
-            self.fig = None
+        if not layer:
+            layer = list(self.data[exp].weights.keys())[0]
 
-            traces = list()
+        self.fig = None
+        traces = list()
 
-            sub = 1
-            if len(self.data[exp].step) > 150:
-                sub = len(self.data[exp].step) // 150
+        sub = 1
+        if len(self.data[exp].step) > 150:
+            sub = len(self.data[exp].step) // 150
 
-            all_d = torch.tensor([0])
+        for idx, step in enumerate(self.data[exp].step[::sub]):
+            dist, xaxis_range, step_range = self._get_weight_dist(exp, layer, step, idx)
 
-            for idx, step in enumerate(self.data[exp].step[::sub]):
-                dist, _, _ = self._get_weight_dist(exp, layer, step, idx)
-                all_d = torch.concat((all_d, dist))
+            kernel_size = 10
+            kernel = np.ones(kernel_size) / kernel_size
+            dist_convolved = np.convolve(dist, kernel, mode='valid')
 
-            all_d, indices = torch.sort(all_d)
-
-            for idx, step in enumerate(self.data[exp].step[::sub]):
-                dist, xaxis_range, step_range = self._get_weight_dist(exp, layer, step, idx)
-
-                kernel_size = 10
-                kernel = np.ones(kernel_size) / kernel_size
-                dist_convolved = np.convolve(dist, kernel, mode='valid')
-
-                # PuOr
-
-                trace = go.Scatter3d(
-                    x=xaxis_range, y=step_range, z=dist_convolved,
-                    mode="lines",
-                    line=dict(colorscale='rdylbu', width=1, color=dist, cmax=.3, cmin=-.2),
-                    hovertemplate="<br>".join([
-                        "weight: %{x}",
-                        "epoch: %{y}",
-                        "p: %{z}",
-                    ])
-                )
-                traces.append(trace)
-
-            self.fig = go.Figure(data=traces)
-
-            self.fig.update_layout(scene=dict(
-                xaxis_title='Parameter values',
-                yaxis_title='Epoch',
-                zaxis_title='Distribution'),
-                paper_bgcolor="#2E3337",
-                font_color="#99A8B2",
-                margin=dict(r=20, b=10, l=10, t=10),
-                title=f"Experiment: {exp.upper()} \t Layer: {layer}",
-                title_y=0.95,
-
+            trace = go.Scatter3d(
+                x=xaxis_range, y=step_range, z=dist_convolved,
+                mode="lines",
+                line=dict(colorscale='rdylbu', width=1, color=dist, cmax=.3, cmin=-.2),
+                hovertemplate="<br>".join([
+                    "weight: %{x}",
+                    "epoch: %{y}",
+                    "p: %{z}",
+                ])
             )
+            traces.append(trace)
 
-            self.fig.update_layout(scene=dict(
-                xaxis=dict(
-                    backgroundcolor="#2E3337",
-                    gridcolor="#99A8B2",
-                    showbackground=True,
-                    zerolinecolor="#99A8B2"
-                ),
-                yaxis=dict(
-                    backgroundcolor="#2E3337",
-                    gridcolor="#99A8B2",
-                    showbackground=True,
-                    zerolinecolor="#99A8B2"
-                ),
-                zaxis=dict(
-                    backgroundcolor="#2E3337",
-                    gridcolor="#99A8B2",
-                    showbackground=True,
-                    zerolinecolor="#99A8B2", ),
-            ))
+        self.fig = go.Figure(data=traces)
 
-            self._set_legend()
+        self.fig.update_layout(scene=dict(
+            xaxis_title='Parameter values',
+            yaxis_title='Epoch',
+            zaxis_title='Distribution'),
+            paper_bgcolor="#2E3337",
+            font_color="#99A8B2",
+            margin=dict(r=20, b=10, l=10, t=10),
+            title=f"Experiment: {exp.upper()} \t Layer: {layer}",
+            title_y=0.95,
 
-            logger.info(f"Figure for Weight Plot set up.")
+        )
 
-            return self.fig
+        self.fig.update_layout(scene=dict(
+            xaxis=dict(
+                backgroundcolor="#2E3337",
+                gridcolor="#99A8B2",
+                showbackground=True,
+                zerolinecolor="#99A8B2"
+            ),
+            yaxis=dict(
+                backgroundcolor="#2E3337",
+                gridcolor="#99A8B2",
+                showbackground=True,
+                zerolinecolor="#99A8B2"
+            ),
+            zaxis=dict(
+                backgroundcolor="#2E3337",
+                gridcolor="#99A8B2",
+                showbackground=True,
+                zerolinecolor="#99A8B2", ),
+        ))
+
+        self._set_legend()
+
+        logger.info(f"Figure for Weight Plot building with {exp} and {layer} is done.")
+
+        return self.fig
 
     def _get_weight_dist(self, exp: str, layer: str, step: float, idx: int):
         sub = 1

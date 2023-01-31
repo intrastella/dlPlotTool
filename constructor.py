@@ -18,7 +18,7 @@ from dash.dependencies import Input, Output, ClientsideFunction
 import dash_bootstrap_components as dbc
 
 from html_methods import _multi_select, _cool_dropdown
-from plotlyFigs import ParamsFig, LossFig, WeightFig
+from dlFigures import ParamsFig, LossFig, WeightFig
 from utils import PlotType, get_config, parser
 
 
@@ -260,7 +260,7 @@ class DLPlotter:
             figs.append(paras)
 
         if self._loss:
-            data_dir = cwd / "fig_conf.toml"
+            data_dir = cwd / "dlFigures/fig_conf.toml"
             with open(data_dir) as f:
                 data = f.read()
             d = toml.loads(data)
@@ -290,10 +290,19 @@ class DLPlotter:
 
 class DashStruct:
     header = html.Header(children=[
-                html.H1(children="Deep Learning Analyser", className="header-title"),
+
+                html.H1(children="Deep Learning Analyser", id="in-logo"),
+                html.P(children="DLA", id="logo"),
                 html.P(children="Analyze the behavior of your DL models"
                                 " in a comprehensive and easy to use way.",
-                       className="header-description", id="dscript")], className="header", id="app-page-header")
+                       className="header-description", id="dscript"),
+                html.Nav(html.Div(children=[
+                                       html.A(href="#learning_progress", children="Learning Progress".upper()),
+                                       html.A(href="#accuracy", children="Accuracy".upper()),
+                                       html.A(href="#sample_outputs", children="Model Output".upper()),
+                                       ], className="topnav"), id="navcontainer")
+
+    ], className="header", id="app-page-header")
     footer = None
 
     def __init__(self, data):
@@ -304,18 +313,24 @@ class DashStruct:
                         meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}])
         self.app.title = "DL Plots"
 
-        self.app.callback(
-            dash.dependencies.Output(PlotType.LossFig.value, 'figure'),
-            [dash.dependencies.Input('model-id', 'value')])(self._single_drop_update)
-
-        '''self.app.callback(
-            dash.dependencies.Output(PlotType.WeightFig.value, 'figure'),
-            [dash.dependencies.Input('w-model-id', 'value')])(self.update_graphs1)'''
+        self.app.clientside_callback(
+            ClientsideFunction("clientside", "responsiveNav"),
+            Output("navcontainer", "data-loaded"),
+            [Input("navcontainer", "id")])
 
         self.app.clientside_callback(
             ClientsideFunction("clientside", "stickyHeader"),
             Output("app-page-header", "data-loaded"),
             [Input("app-page-header", "id"), Input("dscript", "id")])
+
+        self.app.callback(
+            dash.dependencies.Output(PlotType.LossFig.value, 'figure'),
+            [dash.dependencies.Input('model-id', 'value')])(self._single_drop_update)
+
+        self.app.callback(
+            dash.dependencies.Output(PlotType.WeightFig.value, 'figure'),
+            [dash.dependencies.Input('w-model-id1', 'value'), dash.dependencies.Input('w-model-id2', 'value')])(
+            self._multi_drop_update)
 
     def window(self,
                window: str,
@@ -351,12 +366,10 @@ class DashStruct:
 
         if display_mode == 'single':
             rows = [dbc.Row(dbc.Col(html.Div(children=title)))]
-
             if feat_pos:
                 rows.append(dbc.Row([dbc.Col(html.Div(graph), width=6), dbc.Col(html.Div(dis_feat), width=6)]))
             else:
                 rows += [dbc.Row(dbc.Col(dis_feat, width=12)), dbc.Row(dbc.Col(graph, width=12))]
-
             section = dbc.Col(dbc.Card(dbc.CardBody(rows), className=window), width=12)
 
         else:
@@ -371,18 +384,18 @@ class DashStruct:
         :return: matplotlib and any subclass figures like plotly
         """
         for fig in self.figs:
-            if fig.window_data.features:
+            if fig.window_data.features == "cool_dropdown":
                 return fig.setup(input_parameter)
 
-    def _multi_drop_update(self, input_parameter):
+    def _multi_drop_update(self, exp_id, layer):
         """
         Collect data in DLPlotter and send the instantiated class to DashStruct.
         S.t.: w/ fig.setup(input_parameter) returns a new fig to update current fig
         :return: matplotlib and any subclass figures like plotly
         """
-        fig = self.figs[2]
-        if fig.window_data.features:
-            return fig.setup(input_parameter)
+        for fig in self.figs:
+            if fig.window_data.features == 'multi_select':
+                return fig.setup(exp_id, layer)
 
     def set_prop(self, fig):
         """
@@ -402,7 +415,7 @@ class DashStruct:
         for i, fig in enumerate(self.figs):
             self.set_prop(fig)
 
-            # needs to be improved so far left orientation
+            # needs to be improved - so far left orientation
 
             if fig.window_data.display_mode == 'single':
                 page.append(dbc.Row(children=sections))

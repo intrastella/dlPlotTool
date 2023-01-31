@@ -1,9 +1,6 @@
-import logging
-from copy import copy
 from enum import Enum
 from functools import partial
 from pathlib import Path
-from typing import Union
 
 import toml
 import torch
@@ -12,8 +9,6 @@ from box import Box
 import matplotlib as mpl
 import numpy as np
 import seaborn as sns
-
-import plotly.graph_objs as go
 
 
 class ExtendedEnum(Enum):
@@ -58,7 +53,7 @@ def get_config():
     returns a toml dict as instance from box, i.e. dot notation
     """
     cwd = Path(__file__).resolve().parent
-    location = cwd / 'fig_conf.toml'
+    location = cwd / 'dlFigures/fig_conf.toml'
     with open(location) as f:
         config = Box(toml.load(f))
     return config
@@ -116,15 +111,6 @@ def get_interpolation_data(x, y, deg, inter_step):
     return x_new, y_new
 
 
-def hex_to_rgb(values):
-    rgb = []
-    for value in values:
-        value = value.lstrip('#')
-        lv = len(value)
-        rgb.append(list(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3)))
-    return rgb
-
-
 class ColorPicker:
 
     def __init__(self, color_schema):
@@ -149,28 +135,3 @@ class ColorPicker:
             cmap = mpl.colormaps['viridis']
             indices = np.linspace(0, 70, n)
             self.rgb = [cmap.colors[int(i)] for i in indices][1: n - 1]
-
-
-def col_tester(n):
-    widths = np.array([0.5] * n)
-
-    for c in ['darkblue', 'lightblue', 'lightgreen', 'lightorange']:
-
-        picker = ColorPicker(c)
-        picker.color_range(n)
-        schema = picker.rgb
-        color = [('rgb({r}, {g}, {b})').format(r=c[0], g=c[1], b=c[2]) for c in schema]
-
-        y = np.array([10] * n)
-        data = dict(x=np.cumsum(widths)-widths, width=widths, y=y, marker=dict(color=color))
-
-        fig = go.Figure(go.Bar(**data))
-        fig.update_xaxes(
-            tickvals=np.cumsum(widths) - widths / 2,
-            ticktext=np.arange(0, n+1, 1))
-        fig.update_layout(xaxis_title=c)
-        fig.show()
-
-
-if __name__ == '__main__':
-    col_tester(10)

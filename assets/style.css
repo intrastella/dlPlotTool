@@ -43,7 +43,7 @@ header{
 
 #dscript {
     position: relative;
-    top: 28%;
+    top: 20%;
     font-size: 14px;
     color: white;
     font-weight:100;
@@ -53,17 +53,10 @@ header{
 }
 
 #dscript.sticky {
-    position: relative;
-    top: 28%;
     font-size: 0px;
-    color: rgba(84, 137, 237, 0.5);
-    font-weight:100;
-    text-align:center;
-    letter-spacing: 4px;
-    word-spacing: 4px;
 }
 
-.header-title {
+#in-logo {
     position: relative;
     top: 25%;
     font-size: 42px;
@@ -71,6 +64,64 @@ header{
     font-weight:100;
     text-align:center;
     letter-spacing: 4px;
+}
+
+#in-logo.sticky {
+    font-size: 0px;
+}
+
+#logo {
+    font-size: 0px;
+}
+
+#logo.sticky {
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    font-size: 50px;
+    color: white;
+    font-weight:900;
+    text-align:center;
+    letter-spacing: 4px;
+}
+
+#navcontainer {
+    position: fixed; /* static */
+    top: 150px;
+    overflow: hidden;
+}
+
+#navcontainer.sticky {
+    position: fixed; /* static */
+    top: 50px;
+    overflow: hidden;
+}
+
+.topnav a {
+    z-index: 3;
+    top: 0px;
+    letter-spacing: 4px;
+    word-spacing: 4px;
+    color: #E57642;
+    float: left;
+    text-lign: center;
+    padding: 14px 16px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+a {
+    font-weight: bold;
+}
+
+a:hover {
+    letter-spacing: 6px;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+a. active {
+    font-weight: thin;
 }
 
 .section1 {

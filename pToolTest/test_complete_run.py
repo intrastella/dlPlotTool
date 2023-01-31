@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from tqdm import tqdm
 from typing import List
 
 import numpy as np
@@ -71,9 +72,8 @@ def train(num_epochs: int,
     val_steps = 0
 
     cnn.train()
-    total_step = len(loaders[mode])
 
-    for epoch in range(num_epochs):
+    for epoch in tqdm(range(num_epochs)):
         for i, (images, labels) in enumerate(loaders[mode]):
 
             b_x = Variable(images)
@@ -103,7 +103,7 @@ def train(num_epochs: int,
 
             plotter.collect_loss(f"exp{num}", len(loaders[mode]), epoch, i, loss.item(), mode)
 
-        logger.info(f"{mode.upper()} Data for Epoch [{epoch} / {num_epochs-1}] collected.")
+    logger.info(f"{mode.upper()} Data collected.")
 
     if mode == 'train':
         output_file_name = exp_dir / f"exp{num}.toml"

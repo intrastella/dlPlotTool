@@ -1,14 +1,12 @@
-import copy
 import time
 import unittest
 from pathlib import Path
 
-import numpy as np
 import plotly
 import toml
 import torch
 from box import Box
-from torch.distributions import VonMises
+
 
 cwd = Path(__file__).resolve().parent
 file_func = cwd.parent
@@ -27,14 +25,20 @@ def TestWightPLot(size):
     WeightFig = target.WeightFig
     weightplot = WeightFig(weight)
 
-    exp = "exp0001"
-    layer = "(0)Conv2d"
+    exp = ["exp0001", "exp0002"]
+    layer = ["(0)Conv2d", "(2)Linear"]
     step = 5
     idx = 5
 
     # dist, xaxis_range = weightplot._get_weight_dist(exp, layer, step, idx)
-    weightplot.get_fig()
-    plotly.offline.iplot(weightplot.fig)
+    for e, l in zip(exp, layer):
+        x = weightplot.setup(e, l)
+        plotly.offline.iplot(weightplot.fig)
+        plotly.offline.iplot(x)
+
+    # weightplot.get_fig()
+
+    # plotly.offline.iplot(weightplot.fig)
 
     # self.assertEqual(torch.min(dist), 0) assert torch.min(dist) >= 0
 
