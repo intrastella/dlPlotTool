@@ -1,3 +1,5 @@
+
+
 ![Alt text](./samples/images/layout1.png?raw=true "Title")
 
 ![Alt text](./samples/images/layout3.png?raw=true "Title")
@@ -14,6 +16,7 @@ you can do this too.
 - Collect the data for the Configuration Loss plot. (Hyperparameter configuration).
   Alternatively you can also just load a checkpoint.
 
+```ruby
         plotter = DLPlotter()
         model = MyModel()
         ...
@@ -28,9 +31,11 @@ you can do this too.
         config = dict(lr=0.001, batch_size=64, ...)
         plotter.collect_parameter("exp001"", config, total_loss / (5 * len(loader))
         plotter.construct()
+```
 
 - Collect the data for the Loss plot. (Training / validation)
 
+```ruby
         plotter = DLPlotter()
         model = MyModel()
         ...
@@ -43,9 +48,11 @@ you can do this too.
                 plotter.collect_loss("exp001", len(loaders), epoch, step, loss.item(), "train")
                 ...
         plotter.construct()
+```        
 
 - Collect the data for the Weight Distribution plot.
 
+```ruby
         plotter = DLPlotter()
         model = MyModel()
         ...
@@ -58,6 +65,7 @@ you can do this too.
                 plotter.collect_weights("exp001", len(loader), epoch, step, weights)
                 ...
         plotter.construct()
+```
 
 
 <h2> To Do: </h2>
