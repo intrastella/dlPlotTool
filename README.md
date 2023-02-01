@@ -1,8 +1,10 @@
 
 
-![Alt text](./samples/images/layout1.png?raw=true "Title")
 
-![Alt text](./samples/images/layout3.png?raw=true "Title")
+
+https://user-images.githubusercontent.com/122531435/216107013-999439e4-6327-45eb-b1c2-7070286aefbb.mp4
+
+
 
 
 # DL Plotting Tool 
