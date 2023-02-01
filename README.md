@@ -1,6 +1,6 @@
-![Alt text](/home/stella/Programming/dlPlotTool/samples/images/layout1.png?raw=true "Title")
+![Alt text](./samples/images/layout1.png?raw=true "Title")
 
-![Alt text](/home/stella/Programming/dlPlotTool/samples/images/layout3.png?raw=true "Title")
+![Alt text](./samples/images/layout3.png?raw=true "Title")
 
 
 # DL Plotting Tool 
