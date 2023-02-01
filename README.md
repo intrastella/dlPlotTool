@@ -17,7 +17,7 @@ you can do this too.
   Alternatively you can also just load a checkpoint.
 
 ```ruby
-        plotter = DLPlotter()
+        plotter = DLPlotter()     # add this line
         model = MyModel()
         ...
         total_loss = 0
@@ -29,14 +29,14 @@ you can do this too.
                 total_loss += loss.item()
                 ...
         config = dict(lr=0.001, batch_size=64, ...)
-        plotter.collect_parameter("exp001"", config, total_loss / (5 * len(loader))
-        plotter.construct()
+        plotter.collect_parameter("exp001"", config, total_loss / (5 * len(loader))     # add this line
+        plotter.construct()     # add this line
 ```
 
 - Collect the data for the Loss plot. (Training / validation)
 
 ```ruby
-        plotter = DLPlotter()
+        plotter = DLPlotter()     # add this line
         model = MyModel()
         ...
         for epoch in range(5):
@@ -45,15 +45,15 @@ you can do this too.
                 output = model(x)
                 loss = loss_func(output, y)
 
-                plotter.collect_loss("exp001", len(loaders), epoch, step, loss.item(), "train")
+                plotter.collect_loss("exp001", len(loaders), epoch, step, loss.item(), "train")     # add this line
                 ...
-        plotter.construct()
+        plotter.construct()     # add this line
 ```        
 
 - Collect the data for the Weight Distribution plot.
 
 ```ruby
-        plotter = DLPlotter()
+        plotter = DLPlotter()     # add this line
         model = MyModel()
         ...
         for epoch in range(5):
@@ -62,9 +62,9 @@ you can do this too.
                 weights = dict(layer1=model.layer1.weight.detach().clone(),
                                layer2=model.layer2.weight.detach().clone(), ...)
 
-                plotter.collect_weights("exp001", len(loader), epoch, step, weights)
+                plotter.collect_weights("exp001", len(loader), epoch, step, weights)     # add this line
                 ...
-        plotter.construct()
+        plotter.construct()     # add this line
 ```
 
 
