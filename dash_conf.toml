@@ -1,0 +1,22 @@
+[progress_section]
+    section_id = "learning_progress"
+    section_class = "canvas_section"
+    [progress_section.intro]
+    children = "Examin the learning progress of your models."
+    className = "intro_section"
+
+
+[accuracy_section]
+    section_id = "accuracy"
+    section_class = "canvas_section"
+    [accuracy_section.intro]
+    children = "See the accuracy of your model and find weaknesses."
+    className = "intro_section"
+
+
+[output_section]
+    section_id = "sample_outputs"
+    section_class = "canvas_section"
+    [output_section.intro]
+    children = "Have a look on at your models output."
+    className = "intro_section"

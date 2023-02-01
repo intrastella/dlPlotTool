@@ -124,7 +124,7 @@ a. active {
     font-weight: thin;
 }
 
-.section1 {
+.double {
     margin: 0%;
     padding: 0%;
     width: 100%;
@@ -132,11 +132,40 @@ a. active {
     position: relative;
 }
 
+.empty_frame {
+    position: relative;
+    text-align: center;
+    color: #444E54;
+    font-size: 24px;
+    top: 40px;
+}
+
+.intro_section {
+    color: white;
+    font-size: 28px;
+    position: relative;
+    left: 3%;
+    letter-spacing: 4px;
+    word-spacing: 4px;
+    color: #99A8B2;
+}
+
+.canvas_section {
+    min-height: 600px;
+    background-color: #1C2225;
+    border-radius: 0px;
+    position: relative;
+    top: 0px;
+}
+
 /* *************************************************** */
 
 
 /* *************************************************** */
 /* PLOT SETTINGS */
+
+/* * Learning Progress * */
+
 
 .weight-title {
      fontSize: 16px;

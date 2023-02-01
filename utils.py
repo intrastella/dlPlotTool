@@ -48,12 +48,15 @@ class memorize(dict):
         return partial(self, instance)
 
 
-def get_config():
+def get_config(config_name='fig_conf'):
     """
     returns a toml dict as instance from box, i.e. dot notation
     """
     cwd = Path(__file__).resolve().parent
-    location = cwd / 'dlFigures/fig_conf.toml'
+    if config_name == "dash_conf":
+        location = cwd / 'dash_conf.toml'
+    else:
+        location = cwd / 'dlFigures/fig_conf.toml'
     with open(location) as f:
         config = Box(toml.load(f))
     return config
