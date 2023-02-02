@@ -414,4 +414,3 @@ class WeightFig(WindowFig):
     def _set_legend(self):
         for trace in self.fig['data']:
             trace['showlegend'] = False
-

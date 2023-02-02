@@ -89,3 +89,6 @@ Traceback (most recent call last):
 numpy.linalg.LinAlgError: SVD did not converge in Linear Least Squares
 [2023-02-02 12:11:08,539] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:11:08] "[35m[1mPOST /_dash-update-component HTTP/1.1[0m" 500 -
 [2023-02-02 12:11:11,225] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:11:11] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:14:08,188] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:14:08] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:14:13,535] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:14:13] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:14:24,893] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:14:24] "POST /_dash-update-component HTTP/1.1" 200 -
