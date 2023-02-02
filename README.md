@@ -77,4 +77,4 @@ you can do this too.
 > 3. Improve Callbacks - update mechanism. You find them in constructor.py in the class DashStruct.
 > 4. Loading data from checkpoints (pickle files) in DLPlotter class.
 > 5. Adding custom plots also in DLPlotter class.
-> 6. (I am atm fixing 2 bugs with the figures in the section 'Learning Progress')
+> 6. (I am atm fixing 2 bugs with the weight distribution and interpolation of loss figures.)

@@ -1,1 +1,91 @@
-[2023-02-02 12:03:56,418] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0001 and (0)Conv2d is done.
+[2023-02-02 12:06:36,840] INFO [__main__.test_complete_run.train:106] TRAIN Data collected.
+[2023-02-02 12:06:36,844] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0001 collected.
+[2023-02-02 12:06:39,248] INFO [__main__.test_complete_run.train:106] VALIDATION Data collected.
+[2023-02-02 12:06:40,913] INFO [__main__.test_complete_run.train:106] TRAIN Data collected.
+[2023-02-02 12:06:40,914] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0002 collected.
+[2023-02-02 12:06:41,697] INFO [__main__.test_complete_run.train:106] VALIDATION Data collected.
+[2023-02-02 12:06:42,894] INFO [__main__.test_complete_run.train:106] TRAIN Data collected.
+[2023-02-02 12:06:42,894] INFO [__main__.test_complete_run.train:115] Hyperparameters for Experiment exp0003 collected.
+[2023-02-02 12:06:43,530] INFO [__main__.test_complete_run.train:106] VALIDATION Data collected.
+[2023-02-02 12:06:43,804] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:127] Figure for Loss Plot building with exp0001 is done.
+[2023-02-02 12:06:44,180] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0001 and (0)Conv2d is done.
+[2023-02-02 12:06:44,180] INFO [constructor.constructor._build_progress_section:281] Fetching figure objects for Learning Progress section completed.
+[2023-02-02 12:06:44,184] INFO [constructor.dash.run:1968] Dash is running on http://127.0.0.1:8050/
+
+[2023-02-02 12:06:44,185] INFO [werkzeug._internal._log:224] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8050
+[2023-02-02 12:06:44,185] INFO [werkzeug._internal._log:224] [33mPress CTRL+C to quit[0m
+[2023-02-02 12:08:14,105] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "GET / HTTP/1.1" 200 -
+[2023-02-02 12:08:14,323] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "GET /assets/script.js?m=1675206004.684407 HTTP/1.1" 200 -
+[2023-02-02 12:08:14,327] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "[36mGET /assets/style.css?m=1675245802.8611999 HTTP/1.1[0m" 304 -
+[2023-02-02 12:08:14,375] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "[33mGET /assets/compass/css3 HTTP/1.1[0m" 404 -
+[2023-02-02 12:08:14,377] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "[33mGET /assets/compass/reset HTTP/1.1[0m" 404 -
+[2023-02-02 12:08:14,551] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "GET /_dash-dependencies HTTP/1.1" 200 -
+[2023-02-02 12:08:14,611] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "GET /_dash-layout HTTP/1.1" 200 -
+[2023-02-02 12:08:14,622] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "GET /_favicon.ico?v=2.7.1 HTTP/1.1" 200 -
+[2023-02-02 12:08:14,743] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "[36mGET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1[0m" 304 -
+[2023-02-02 12:08:14,784] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "[36mGET /_dash-component-suites/dash/dcc/async-dropdown.js HTTP/1.1[0m" 304 -
+[2023-02-02 12:08:14,790] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:14] "[36mGET /_dash-component-suites/dash/dcc/async-plotlyjs.js HTTP/1.1[0m" 304 -
+[2023-02-02 12:08:15,112] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:15] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:15,809] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0001 and (0)Conv2d is done.
+[2023-02-02 12:08:15,864] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:15] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:25,490] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0002 and (0)Conv2d is done.
+[2023-02-02 12:08:25,502] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:25] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:29,053] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0003 and (0)Conv2d is done.
+[2023-02-02 12:08:29,058] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:29] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:34,691] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0003 and (2)Linear is done.
+[2023-02-02 12:08:34,696] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:34] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:38,253] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0003 and (1)Conv2d is done.
+[2023-02-02 12:08:38,257] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:38] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:41,395] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0003 and (0)Conv2d is done.
+[2023-02-02 12:08:41,399] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:41] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:44,684] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:44] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:48,483] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0001 and (2)Linear is done.
+[2023-02-02 12:08:48,511] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:48] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:08:56,691] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0001 and (1)Conv2d is done.
+[2023-02-02 12:08:56,719] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:08:56] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:09:02,843] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0001 and (0)Conv2d is done.
+[2023-02-02 12:09:02,874] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:09:02] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:09:12,668] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:09:12] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:09:26,107] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:09:26] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:09:41,370] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0002 and (2)Linear is done.
+[2023-02-02 12:09:41,379] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:09:41] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:09:52,157] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:377] Figure for Weight Plot building with exp0002 and (1)Conv2d is done.
+[2023-02-02 12:09:52,165] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:09:52] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:11:05,464] INFO [dlFigures.plotlyFigs.plotlyFigs.setup:127] Figure for Loss Plot building with exp0002 is done.
+[2023-02-02 12:11:05,466] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:11:05] "POST /_dash-update-component HTTP/1.1" 200 -
+[2023-02-02 12:11:08,530] ERROR [constructor.app.log_exception:1741] Exception on /_dash-update-component [POST]
+Traceback (most recent call last):
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/dash/dash.py", line 1274, in dispatch
+    ctx.run(
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/dash/_callback.py", line 440, in add_context
+    output_value = func(*func_args, **func_kwargs)  # %% callback invoked %%
+  File "/home/stella/Programming/dlPlotTool/constructor.py", line 404, in _single_drop_update
+    return fig.setup(input_parameter)
+  File "/home/stella/Programming/dlPlotTool/utils.py", line 41, in __call__
+    return self[args]
+  File "/home/stella/Programming/dlPlotTool/utils.py", line 44, in __missing__
+    result = self[key] = self.func(*key)
+  File "/home/stella/Programming/dlPlotTool/dlFigures/plotlyFigs.py", line 116, in setup
+    x_new, y_new = get_interpolation_data(x, y, **self.config.LossFig.traceVals[mode].interpolation)
+  File "/home/stella/Programming/dlPlotTool/utils.py", line 110, in get_interpolation_data
+    z = np.polyfit(x_steps, y_avg, deg)
+  File "<__array_function__ internals>", line 200, in polyfit
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/numpy/lib/polynomial.py", line 668, in polyfit
+    c, resids, rank, s = lstsq(lhs, rhs, rcond)
+  File "<__array_function__ internals>", line 200, in lstsq
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/numpy/linalg/linalg.py", line 2285, in lstsq
+    x, resids, rank, s = gufunc(a, b, rcond, signature=signature, extobj=extobj)
+  File "/home/stella/Programming/dlPlotTool/venv/lib/python3.10/site-packages/numpy/linalg/linalg.py", line 101, in _raise_linalgerror_lstsq
+    raise LinAlgError("SVD did not converge in Linear Least Squares")
+numpy.linalg.LinAlgError: SVD did not converge in Linear Least Squares
+[2023-02-02 12:11:08,539] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:11:08] "[35m[1mPOST /_dash-update-component HTTP/1.1[0m" 500 -
+[2023-02-02 12:11:11,225] INFO [werkzeug._internal._log:224] 127.0.0.1 - - [02/Feb/2023 12:11:11] "POST /_dash-update-component HTTP/1.1" 200 -
