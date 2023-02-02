@@ -11,7 +11,7 @@ from box import Box
 cwd = Path(__file__).resolve().parent
 file_func = cwd.parent
 
-target = __import__("plotlyFigs")
+target = __import__("dlFigures.plotlyFigs")
 
 
 def TestWightPLot(size):
@@ -25,20 +25,24 @@ def TestWightPLot(size):
     WeightFig = target.WeightFig
     weightplot = WeightFig(weight)
 
-    exp = ["exp0001", "exp0002"]
-    layer = ["(0)Conv2d", "(2)Linear"]
+    exp = ["exp0001", "exp0002", "exp0003"]
+    layer = ["(0)Conv2d", "(2)Linear", "(1)Conv2d"]
     step = 5
     idx = 5
 
-    # dist, xaxis_range = weightplot._get_weight_dist(exp, layer, step, idx)
-    for e, l in zip(exp, layer):
-        x = weightplot.setup(e, l)
-        plotly.offline.iplot(weightplot.fig)
-        plotly.offline.iplot(x)
+    # exp: str, layer: str, step: float, idx:
+
+    # weightplot._get_weight_dist()
+
+    # plotly.offline.iplot(x)
 
     # weightplot.get_fig()
 
-    # plotly.offline.iplot(weightplot.fig)
+    '''for e in exp:
+        for l in layer:'''
+    weightplot.setup(exp[0], layer[0])
+
+    plotly.offline.iplot(weightplot.fig)
 
     # self.assertEqual(torch.min(dist), 0) assert torch.min(dist) >= 0
 
@@ -94,6 +98,8 @@ def TestLossPLot():
 
 
 if __name__ == '__main__':
+    cwd = Path(__file__).resolve().parent
+
     # unittest.main()
     # TestParamsPLot()
     TestWightPLot('large')

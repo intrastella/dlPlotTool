@@ -1,7 +1,7 @@
 import copy
 import logging
 from functools import cached_property
-from typing import Union, Tuple
+from typing import Union, Tuple, List
 from pathlib import Path
 
 import numpy as np
@@ -303,20 +303,33 @@ class WeightFig(WindowFig):
         traces = list()
 
         sub = 1
-        if len(self.data[exp].step) > 150:
-            sub = len(self.data[exp].step) // 150
+        if len(self.data[exp].weights[layer]) > 150:
+            sub = len(self.data[exp].weights[layer]) // 150
+        if sub == 0:
+            sub = 1
 
-        for idx, step in enumerate(self.data[exp].step[::sub]):
-            dist, xaxis_range, step_range = self._get_weight_dist(exp, layer, step, idx)
+        kernel_size = 10
+        kernel = np.ones(kernel_size) / kernel_size
 
-            kernel_size = 10
-            kernel = np.ones(kernel_size) / kernel_size
+        steps = self.data[exp].step[:sub * 150:sub]
+        resized_step = len(steps) / 150
+        max_dist = list()
+        min_dist = list()
+
+        for idx, step in enumerate(steps):
+            dist, _, _ = self._get_weight_dist(exp, layer, step, idx)
             dist_convolved = np.convolve(dist, kernel, mode='valid')
+            max_dist.append(np.max(dist_convolved).item())
+            min_dist.append(np.min(dist_convolved).item())
+
+        for idx, step in enumerate(steps):
+            dist, xaxis_range, step_range = self._get_weight_dist(exp, layer, step, idx)
+            dist_convolved = np.convolve(dist, kernel, mode='valid') # only when ocillation is high, function to check that
 
             trace = go.Scatter3d(
                 x=xaxis_range, y=step_range, z=dist_convolved,
                 mode="lines",
-                line=dict(colorscale='rdylbu', width=1, color=dist, cmax=.3, cmin=-.2),
+                line=dict(colorscale='rdylbu', width=4 - 3*resized_step, color=dist_convolved, cmax=max(max_dist), cmin=min(min_dist)),
                 hovertemplate="<br>".join([
                     "weight: %{x}",
                     "epoch: %{y}",
@@ -369,46 +382,36 @@ class WeightFig(WindowFig):
         sub = 1
         if len(self.data[exp].weights[layer]) > 150:
             sub = len(self.data[exp].weights[layer]) // 150
-        params = self.data[exp].weights[layer][::sub]
+        if sub == 0:
+            sub = 1
 
-        params = torch.stack(params)    # only commented out for testing , format of test data wrong
+        params = self.data[exp].weights[layer][:sub * 150:sub]
 
-        min_val = torch.min(torch.FloatTensor(params)).item()
-        max_val = torch.max(torch.FloatTensor(params)).item()
+        params = torch.stack(params)
+        max_val = torch.max(params).item()
+        min_val = torch.min(params).item()
 
-        decimal = torch.round(torch.log10(abs(torch.tensor(min_val)))).item()
-        decimal = abs(1 - int(decimal)) # original 2
+        length = 50
 
-        decimal1 = torch.round(torch.log10(abs(torch.tensor(max_val)))).item()
-        decimal1 = abs(1 - int(decimal1)) # original 2
+        translation = abs(max_val - min_val)
+        translation_factor = length / translation
+        transform = lambda x: (x - min_val) * translation_factor
 
-        dec = max(decimal, decimal1)
+        translated_weight = transform(params[idx].flatten())
+        new_weights = torch.round(translated_weight, decimals=0).int()
+        frequencies = torch.bincount(new_weights)
 
-        frequencies = calc_freq(params[idx], dec)
+        if length + 1 > len(frequencies):
+            added_zeros = torch.zeros(length + 1 - len(frequencies))
+            frequencies = torch.concatenate((frequencies, added_zeros))
 
-        dist = frequencies / len(frequencies)
-        dist = torch.round(dist, decimals=2)
-
-        xaxis_range = torch.linspace(min_val, max_val, len(frequencies))
-        step_range = torch.tensor([step] * len(frequencies))
-        xaxis_range = torch.round(xaxis_range, decimals=3)
+        dist = torch.round(frequencies / torch.sum(frequencies), decimals=2)
+        xaxis_range = torch.linspace(min_val, max_val, length)
+        step_range = torch.ones(length) * step
 
         return dist, xaxis_range, step_range
 
     def _set_legend(self):
         for trace in self.fig['data']:
             trace['showlegend'] = False
-
-
-def calc_freq(x, dec):
-    x = x.flatten()
-
-    tensor_round = torch.round(x, decimals=dec)
-    tensor_round = tensor_round * 10 ** dec
-    tensor_round = tensor_round.int()
-
-    translated = tensor_round - torch.min(tensor_round)
-    frequencies = torch.bincount(translated)
-
-    return frequencies
 

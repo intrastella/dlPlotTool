@@ -113,7 +113,6 @@ class DLPlotter:
         if not isinstance(loss, float):
             raise ValueError(f"Loss must be of type str not {type(loss)}.")
 
-        epoch += 1
         distance = 1. / n_batches
         epoch_step = epoch + step * distance
         loss = np.round(loss, 2)
@@ -228,7 +227,6 @@ class DLPlotter:
             if not isinstance(weights[key], torch.Tensor):
                 raise ValueError(f"Weight parameters must be of type torch tensor not {type(weights[key])}.")
 
-        epoch += 1
         distance = 1. / n_batches
         epoch_step = epoch + step * distance
 
