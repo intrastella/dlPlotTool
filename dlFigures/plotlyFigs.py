@@ -300,8 +300,10 @@ class WeightFig(WindowFig):
             layer = list(self.data[exp].weights.keys())[0]
 
         self.fig = None
+
         traces = list()
 
+        # not all steps are necessary - optimal 150 steps
         sub = 1
         if len(self.data[exp].weights[layer]) > 150:
             sub = len(self.data[exp].weights[layer]) // 150
@@ -324,7 +326,8 @@ class WeightFig(WindowFig):
 
         for idx, step in enumerate(steps):
             dist, xaxis_range, step_range = self._get_weight_dist(exp, layer, step, idx)
-            dist_convolved = np.convolve(dist, kernel, mode='valid') # only when ocillation is high, function to check that
+            # only when ocillation is high, function to check that
+            dist_convolved = np.convolve(dist, kernel, mode='valid')
 
             trace = go.Scatter3d(
                 x=xaxis_range, y=step_range, z=dist_convolved,
@@ -340,38 +343,11 @@ class WeightFig(WindowFig):
 
         self.fig = go.Figure(data=traces)
 
-        self.fig.update_layout(scene=dict(
-            xaxis_title='Parameter values',
-            yaxis_title='Epoch',
-            zaxis_title='Distribution'),
-            paper_bgcolor="#2E3337",
-            font_color="#99A8B2",
-            margin=dict(r=20, b=10, l=10, t=10),
+        self.fig.update_layout(
             title=f"Experiment: {exp.upper()} \t Layer: {layer}",
-            title_y=0.95,
-
+            **self.config.WeightFig.data,
         )
-
-        self.fig.update_layout(scene=dict(
-            xaxis=dict(
-                backgroundcolor="#2E3337",
-                gridcolor="#99A8B2",
-                showbackground=True,
-                zerolinecolor="#99A8B2"
-            ),
-            yaxis=dict(
-                backgroundcolor="#2E3337",
-                gridcolor="#99A8B2",
-                showbackground=True,
-                zerolinecolor="#99A8B2"
-            ),
-            zaxis=dict(
-                backgroundcolor="#2E3337",
-                gridcolor="#99A8B2",
-                showbackground=True,
-                zerolinecolor="#99A8B2", ),
-        ))
-
+        self.fig.update_layout(**self.config.WeightFig.axes)
         self._set_legend()
 
         logger.info(f"Figure for Weight Plot building with {exp} and {layer} is done.")

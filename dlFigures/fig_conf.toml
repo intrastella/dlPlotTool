@@ -77,6 +77,11 @@ mode = "text"
 textposition = "top center"
 hoverinfo = "skip"
 
+[WeightFig.data]
+paper_bgcolor = "#2E3337"
+font_color = "#99A8B2"
+title_y = 0.95
+
 [WeightFig.Div]
 children = "Weight Distribution"
 className = "weight-title"
@@ -103,6 +108,17 @@ color = "#99A8B2"
 gridcolor = "#99A8B2"
 griddash = "dot"
 zerolinecolor = "#99A8B2"
+
+[WeightFig.data.scene]
+xaxis_title = "Parameter values"
+yaxis_title = "Epoch"
+zaxis_title = "Distribution"
+
+[WeightFig.data.margin]
+r = 20
+b = 10
+l = 10
+t = 10
 
 [WeightFig.MSelect.drop1]
 options = [ "exp0001", "exp0002", "exp0003",]
@@ -152,3 +168,18 @@ mode = "lines"
 line_color = "#E57642"
 name = "Interpolation"
 xaxis = "x2"
+
+[WeightFig.axes.scene.xaxis]
+backgroundcolor = "#2E3337"
+gridcolor = "#99A8B2"
+zerolinecolor = "#99A8B2"
+
+[WeightFig.axes.scene.yaxis]
+backgroundcolor = "#2E3337"
+gridcolor = "#99A8B2"
+zerolinecolor = "#99A8B2"
+
+[WeightFig.axes.scene.zaxis]
+backgroundcolor = "#2E3337"
+gridcolor = "#99A8B2"
+zerolinecolor = "#99A8B2"
